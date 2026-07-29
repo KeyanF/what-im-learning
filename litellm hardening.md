@@ -27,10 +27,10 @@ group. Normally Linux will make a new group called a User Private Group, which l
 Code from the same machine that I host the models from, I don't want to have to type in n each time it changes.
 
 ## Locking down the secret file
-So instead of a UPG (User Private Group) I made a system group and put my user, and the n it. Without going into too much detail of how linux file permissions work, I made it soonly those 2 users could read the key, but neither could change it. Only root can change that secret key.
+So instead of a UPG (User Private Group) I made a system group and put my user and the user the service runs as, in it. Without going into too much detail of how Linux file permissions work, I made it so only those 2 users could read the key, but neither could change it. Only root can change that secret key.
 
 ## Hardening with systemd
-I checked the service with systemd's security check, and it was still a 5.6/10, which isn't great. This was mainly because of 2 things, first, because of the Set User ID bit (SUID). A normal user in Linux
+I checked the service with systemd's security check, and it was still a 5.5/10, which isn't great. This was mainly because of 2 things, first, because of the Set User ID bit (SUID). A normal user in Linux
 isn't allowed to do a lot of things. For example, access the file that stores passwords,y still need to be able to change their own password. The SUID bit lets regular users run
 a service as the owner (root, in most cases) instead of themselves. This would let that  password without accessing other secret parts of the file.
 
